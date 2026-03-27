@@ -1,0 +1,167 @@
+{
+  "title": "Automatyzacja raportów sza86",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Skonfiguruj integrację",
+        "description": "Ustaw podstawowe parametry archiwizacji i harmonogramów raportów.",
+        "data": {
+          "name": "Nazwa integracji",
+          "csv_directory": "Katalog CSV",
+          "retention_months": "Retencja CSV (miesiące)",
+          "daily_time": "Godzina raportu dziennego",
+          "weekly_time": "Godzina raportu tygodniowego",
+          "monthly_time": "Godzina raportu miesięcznego",
+          "yearly_time": "Godzina raportu rocznego",
+          "scan_interval_minutes": "Interwał odświeżania źródeł (minuty)"
+        }
+      }
+    },
+    "abort": {
+      "already_configured": "Integracja jest już skonfigurowana"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Ustawienia integracji",
+        "menu_options": {
+          "source_menu": "Zarządzaj źródłami danych",
+          "notify_menu": "Zarządzaj odbiorcami powiadomień",
+          "schedule_settings": "Harmonogram i archiwizacja"
+        }
+      },
+      "source_menu": {
+        "title": "Źródła danych",
+        "menu_options": {
+          "add_source": "Dodaj źródło",
+          "edit_source_select": "Edytuj źródło",
+          "reset_source_select": "Resetuj historię źródła",
+          "remove_source": "Usuń źródło",
+          "init": "Wróć"
+        }
+      },
+      "notify_menu": {
+        "title": "Odbiorcy powiadomień",
+        "menu_options": {
+          "add_notify": "Dodaj odbiorcę",
+          "remove_notify": "Usuń odbiorcę",
+          "init": "Wróć"
+        }
+      },
+      "schedule_settings": {
+        "title": "Harmonogram i archiwizacja",
+        "data": {
+          "enable_daily": "Włącz raport dzienny",
+          "enable_weekly": "Włącz raport tygodniowy",
+          "enable_monthly": "Włącz raport miesięczny",
+          "enable_yearly": "Włącz raport roczny",
+          "daily_time": "Godzina raportu dziennego",
+          "weekly_time": "Godzina raportu tygodniowego",
+          "monthly_time": "Godzina raportu miesięcznego",
+          "yearly_time": "Godzina raportu rocznego",
+          "csv_directory": "Katalog CSV",
+          "retention_months": "Retencja CSV (miesiące)",
+          "scan_interval_minutes": "Interwał odświeżania źródeł (minuty)"
+        }
+      },
+      "add_source": {
+        "title": "Dodaj źródło",
+        "data": {
+          "name": "Nazwa",
+          "entity_id": "Encja źródłowa",
+          "medium": "Medium",
+          "role": "Rola",
+          "unit": "Jednostka (opcjonalnie)",
+          "price": "Cena jednostkowa",
+          "include_in_summary": "Uwzględniaj w raporcie zbiorczym",
+          "active": "Aktywne",
+          "anomaly_threshold": "Próg anomalii (0 = wyłączony)"
+        }
+      },
+      "remove_source": {
+        "title": "Usuń źródło",
+        "data": {
+          "entity_id": "Źródło do usunięcia"
+        }
+      },
+      "add_notify": {
+        "title": "Dodaj odbiorcę powiadomień",
+        "data": {
+          "notify_targets": "Usługa notify.*"
+        }
+      },
+      "remove_notify": {
+        "title": "Usuń odbiorcę powiadomień",
+        "data": {
+          "notify_targets": "Usługa notify.*"
+        }
+      },
+      "edit_source_select": {
+        "title": "Wybierz źródło do edycji",
+        "data": {
+          "entity_id": "Źródło do edycji"
+        }
+      },
+      "edit_source": {
+        "title": "Edytuj źródło",
+        "description": "Edytujesz parametry istniejącego źródła. Entity ID pozostaje bez zmian.",
+        "data": {
+          "name": "Nazwa",
+          "medium": "Medium",
+          "role": "Rola",
+          "unit": "Jednostka (opcjonalnie)",
+          "price": "Cena jednostkowa",
+          "include_in_summary": "Uwzględniaj w raporcie zbiorczym",
+          "active": "Aktywne",
+          "anomaly_threshold": "Próg anomalii (0 = wyłączony)"
+        }
+      },
+      "abort": {
+        "no_sources": "Brak źródeł do edycji lub usunięcia",
+        "source_history_reset": "Historia wybranego źródła została zresetowana",
+        "manager_unavailable": "Manager integracji nie jest dostępny. Zamknij okno i spróbuj ponownie."
+      },
+      "reset_source_select": {
+        "title": "Resetuj historię źródła",
+        "description": "Czyści zapamiętany ostatni odczyt i snapshoty tylko dla wybranego źródła. Bieżący poprawny odczyt zostanie przyjęty jako nowy punkt startowy.",
+        "data": {
+          "entity_id": "Źródło do resetu"
+        }
+      }
+    },
+    "error": {
+      "source_exists": "To źródło jest już dodane",
+      "notify_exists": "Ten odbiorca jest już dodany"
+    },
+    "abort": {
+      "no_sources": "Brak źródeł do usunięcia",
+      "no_notify_targets": "Brak odbiorców do usunięcia",
+      "no_notify_services": "Brak dostępnych usług notify.*",
+      "source_history_reset": "Historia wybranego źródła została zresetowana",
+      "manager_unavailable": "Manager integracji nie jest dostępny. Zamknij okno i spróbuj ponownie."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "status": {
+        "name": "Status raportów"
+      },
+      "daily_report": {
+        "name": "Raport dzienny"
+      },
+      "weekly_report": {
+        "name": "Raport tygodniowy"
+      },
+      "monthly_report": {
+        "name": "Raport miesięczny"
+      },
+      "yearly_report": {
+        "name": "Raport roczny"
+      },
+      "database_overview": {
+        "name": "Podgląd bazy danych"
+      }
+    }
+  }
+}

@@ -1,0 +1,162 @@
+{
+  "title": "Automatic reports",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Set up integration",
+        "description": "Configure archiving and report schedules.",
+        "data": {
+          "name": "Integration name",
+          "csv_directory": "CSV directory",
+          "retention_months": "CSV retention (months)",
+          "daily_time": "Daily report time",
+          "weekly_time": "Weekly report time",
+          "monthly_time": "Monthly report time",
+          "yearly_time": "Yearly report time",
+          "scan_interval_minutes": "Source refresh interval (minutes)"
+        }
+      }
+    },
+    "abort": {
+      "already_configured": "The integration is already configured"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Integration settings",
+        "menu_options": {
+          "source_menu": "Manage data sources",
+          "notify_menu": "Manage notification targets",
+          "schedule_settings": "Schedule and archiving"
+        }
+      },
+      "source_menu": {
+        "title": "Data sources",
+        "menu_options": {
+          "add_source": "Add source",
+          "edit_source_select": "Edit source",
+          "reset_source_select": "Reset source history",
+          "remove_source": "Remove source",
+          "init": "Back"
+        }
+      },
+      "notify_menu": {
+        "title": "Notification targets",
+        "menu_options": {
+          "add_notify": "Add target",
+          "remove_notify": "Remove target",
+          "init": "Back"
+        }
+      },
+      "schedule_settings": {
+        "title": "Schedule and archiving",
+        "data": {
+          "enable_daily": "Enable daily report",
+          "enable_weekly": "Enable weekly report",
+          "enable_monthly": "Enable monthly report",
+          "enable_yearly": "Enable yearly report",
+          "daily_time": "Daily report time",
+          "weekly_time": "Weekly report time",
+          "monthly_time": "Monthly report time",
+          "yearly_time": "Yearly report time",
+          "csv_directory": "CSV directory",
+          "retention_months": "CSV retention (months)",
+          "scan_interval_minutes": "Source refresh interval (minutes)"
+        }
+      },
+      "add_source": {
+        "title": "Add source",
+        "data": {
+          "name": "Name",
+          "entity_id": "Source entity",
+          "medium": "Medium",
+          "role": "Role",
+          "unit": "Unit (optional)",
+          "price": "Unit price",
+          "include_in_summary": "Include in summary report",
+          "active": "Active",
+          "anomaly_threshold": "Anomaly threshold (0 = disabled)"
+        }
+      },
+      "remove_source": {
+        "title": "Remove source",
+        "data": {
+          "entity_id": "Source to remove"
+        }
+      },
+      "add_notify": {
+        "title": "Add notification target",
+        "data": {
+          "notify_targets": "notify.* service"
+        }
+      },
+      "remove_notify": {
+        "title": "Remove notification target",
+        "data": {
+          "notify_targets": "notify.* service"
+        }
+      },
+      "edit_source_select": {
+        "title": "Select source to edit",
+        "data": {
+          "entity_id": "Source to edit"
+        }
+      },
+      "edit_source": {
+        "title": "Edit source",
+        "description": "Edit the parameters of an existing source. The entity ID stays unchanged.",
+        "data": {
+          "name": "Name",
+          "medium": "Medium",
+          "role": "Role",
+          "unit": "Unit (optional)",
+          "price": "Unit price",
+          "include_in_summary": "Include in summary report",
+          "active": "Active",
+          "anomaly_threshold": "Anomaly threshold (0 = disabled)"
+        }
+      },
+      "reset_source_select": {
+        "title": "Reset source history",
+        "description": "Clears the stored last valid reading and snapshots only for the selected source. The current valid reading becomes the new starting point.",
+        "data": {
+          "entity_id": "Source to reset"
+        }
+      }
+    },
+    "error": {
+      "source_exists": "This source is already added",
+      "notify_exists": "This notification target is already added"
+    },
+    "abort": {
+      "no_sources": "No sources available",
+      "no_notify_targets": "No notification targets available",
+      "no_notify_services": "No notify.* services available",
+      "source_history_reset": "The selected source history has been reset",
+      "manager_unavailable": "The integration manager is unavailable. Close the dialog and try again."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "status": {
+        "name": "Reports status"
+      },
+      "daily_report": {
+        "name": "Daily report"
+      },
+      "weekly_report": {
+        "name": "Weekly report"
+      },
+      "monthly_report": {
+        "name": "Monthly report"
+      },
+      "yearly_report": {
+        "name": "Yearly report"
+      },
+      "database_overview": {
+        "name": "Database overview"
+      }
+    }
+  }
+}

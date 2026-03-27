@@ -1,0 +1,51 @@
+generate_report:
+  name: Wygeneruj raport
+  description: Generuje raport dla wybranego okresu i wysyła powiadomienia do skonfigurowanych odbiorców.
+  fields:
+    period:
+      name: Okres
+      description: Okres raportu.
+      required: true
+      selector:
+        select:
+          options:
+            - day
+            - week
+            - month
+            - year
+    entry_id:
+      name: Entry ID
+      description: Opcjonalny identyfikator wpisu konfiguracji, gdy masz więcej niż jedną instancję integracji.
+      required: false
+      selector:
+        text:
+
+reset_snapshots:
+  name: Zresetuj snapshoty
+  description: Ustawia bieżące wartości liczników jako nowy punkt startowy dla raportów.
+  fields:
+    entry_id:
+      name: Entry ID
+      description: Opcjonalny identyfikator wpisu konfiguracji.
+      required: false
+      selector:
+        text:
+
+reset_source_history:
+  name: Zresetuj historię źródła
+  description: Czyści zapamiętany ostatni poprawny odczyt i snapshoty dla jednego źródła, a następnie inicjalizuje je od bieżącej wartości.
+  fields:
+    entity_id:
+      name: Encja źródłowa
+      description: Entity ID źródła skonfigurowanego w integracji.
+      required: true
+      selector:
+        entity:
+          filter:
+            - domain: sensor
+    entry_id:
+      name: Entry ID
+      description: Opcjonalny identyfikator wpisu konfiguracji.
+      required: false
+      selector:
+        text:
