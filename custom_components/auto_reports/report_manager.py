@@ -150,6 +150,7 @@ class ReportManager:
         self.data = self._normalize_store(stored or self._empty_store())
         await self._async_initialize_snapshots_if_needed()
         await self.async_scan_sources()
+        await self._async_refresh_recent_csv_files()
         self._schedule_jobs()
 
     async def async_unload(self) -> None:
@@ -171,6 +172,7 @@ class ReportManager:
             "last_reports": {},
             "last_scan": None,
             "source_states": {},
+            "recent_csv_files": [],
         }
 
     def _normalize_store(self, payload: dict[str, Any]) -> dict[str, Any]:
@@ -184,6 +186,7 @@ class ReportManager:
         normalized.setdefault("last_reports", {})
         normalized.setdefault("last_scan", None)
         normalized.setdefault("source_states", {})
+        normalized.setdefault("recent_csv_files", [])
         return normalized
 
     async def _async_initialize_snapshots_if_needed(self) -> None:
@@ -669,6 +672,7 @@ class ReportManager:
         headers = list(rows[0].keys()) if rows else []
         await self.hass.async_add_executor_job(self._write_csv_sync, filename, headers, rows)
         await self.hass.async_add_executor_job(self._cleanup_old_csv_files, directory)
+        await self._async_refresh_recent_csv_files()
         return str(filename)
 
     def _write_csv_sync(self, filename: Path, headers: list[str], rows: list[dict[str, Any]]) -> None:
@@ -801,7 +805,7 @@ class ReportManager:
             },
             "source_states_count": len(source_states),
             "last_reports": reports_summary,
-            "recent_csv_files": self._list_recent_csv_files(),
+            "recent_csv_files": deepcopy(self.data.get("recent_csv_files", [])),
         }
 
     async def async_reset_snapshots(self) -> None:
@@ -852,7 +856,12 @@ class ReportManager:
             except Exception:  # pragma: no cover - defensive
                 _LOGGER.debug("Listener update failed", exc_info=True)
 
-    def _list_recent_csv_files(self) -> list[dict[str, Any]]:
+    async def _async_refresh_recent_csv_files(self) -> None:
+        self.data["recent_csv_files"] = await self.hass.async_add_executor_job(
+            self._list_recent_csv_files_sync
+        )
+
+    def _list_recent_csv_files_sync(self) -> list[dict[str, Any]]:
         directory = Path(self.config[CONF_CSV_DIRECTORY])
         if not directory.exists():
             return []

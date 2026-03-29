@@ -6,6 +6,7 @@ from typing import Any
 from homeassistant.components.sensor import SensorEntity
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant, callback
+from homeassistant.helpers import entity_registry as er
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.restore_state import RestoreEntity
@@ -22,6 +23,8 @@ async def async_setup_entry(
 ) -> None:
     """Set up report sensors from config entry."""
     manager: ReportManager = hass.data[DOMAIN][entry.entry_id]
+    await _async_remove_orphaned_source_entities(hass, entry, manager.sources)
+
     entities: list[SensorEntity] = [
         ReportStatusSensor(manager, entry),
         DatabaseOverviewSensor(manager, entry),
@@ -41,6 +44,30 @@ async def async_setup_entry(
         )
 
     async_add_entities(entities)
+
+
+async def _async_remove_orphaned_source_entities(
+    hass: HomeAssistant,
+    entry: ConfigEntry,
+    sources: list[dict[str, Any]],
+) -> None:
+    """Remove dynamic entities for sources that are no longer configured."""
+    entity_registry = er.async_get(hass)
+    expected_unique_ids = {
+        f"{entry.entry_id}_source_{slugify(source['entity_id'])}_{suffix}"
+        for source in sources
+        for suffix in ("current", "previous", "status")
+    }
+
+    for registry_entry in er.async_entries_for_config_entry(entity_registry, entry.entry_id):
+        unique_id = registry_entry.unique_id
+        if registry_entry.domain != "sensor":
+            continue
+        if not isinstance(unique_id, str) or not unique_id.startswith(f"{entry.entry_id}_source_"):
+            continue
+        if unique_id in expected_unique_ids:
+            continue
+        entity_registry.async_remove(registry_entry.entity_id)
 
 
 class BaseReportSensor(RestoreEntity, SensorEntity):

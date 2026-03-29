@@ -117,6 +117,11 @@
           "anomaly_threshold": "Próg anomalii (0 = wyłączony)"
         }
       },
+      "abort": {
+        "no_sources": "Brak źródeł do edycji lub usunięcia",
+        "source_history_reset": "Historia wybranego źródła została zresetowana",
+        "manager_unavailable": "Manager integracji nie jest dostępny. Zamknij okno i spróbuj ponownie."
+      },
       "reset_source_select": {
         "title": "Resetuj historię źródła",
         "description": "Czyści zapamiętany ostatni odczyt i snapshoty tylko dla wybranego źródła. Bieżący poprawny odczyt zostanie przyjęty jako nowy punkt startowy.",
@@ -130,7 +135,7 @@
       "notify_exists": "Ten odbiorca jest już dodany"
     },
     "abort": {
-      "no_sources": "Brak źródeł do edycji lub usunięcia",
+      "no_sources": "Brak źródeł do usunięcia",
       "no_notify_targets": "Brak odbiorców do usunięcia",
       "no_notify_services": "Brak dostępnych usług notify.*",
       "source_history_reset": "Historia wybranego źródła została zresetowana",

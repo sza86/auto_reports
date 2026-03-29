@@ -1,0 +1,54 @@
+title: Raporty mediów sza86
+path: raporty-media-sza86
+icon: mdi:file-chart
+cards:
+  - type: grid
+    columns: 2
+    square: false
+    cards:
+      - type: custom:button-card
+        entity: sensor.automatyzacja_raportow_sza86_raport_dzienny
+        name: Raport dzienny
+        show_state: true
+        icon: mdi:calendar-today
+        tap_action:
+          action: more-info
+      - type: custom:button-card
+        entity: sensor.automatyzacja_raportow_sza86_raport_tygodniowy
+        name: Raport tygodniowy
+        show_state: true
+        icon: mdi:calendar-week
+        tap_action:
+          action: more-info
+      - type: custom:button-card
+        entity: sensor.automatyzacja_raportow_sza86_raport_miesieczny
+        name: Raport miesięczny
+        show_state: true
+        icon: mdi:calendar-month
+        tap_action:
+          action: more-info
+      - type: custom:button-card
+        entity: sensor.automatyzacja_raportow_sza86_raport_roczny
+        name: Raport roczny
+        show_state: true
+        icon: mdi:calendar
+        tap_action:
+          action: more-info
+
+  - type: markdown
+    content: |
+      ## Ostatni raport miesięczny
+      **Status:** {{ states('sensor.automatyzacja_raportow_sza86_raport_miesieczny') }}
+      **Koszt łączny:** {{ state_attr('sensor.automatyzacja_raportow_sza86_raport_miesieczny', 'total_cost') }} zł
+      **Problemy:** {{ state_attr('sensor.automatyzacja_raportow_sza86_raport_miesieczny', 'issues_count') }}
+      **CSV:** {{ state_attr('sensor.automatyzacja_raportow_sza86_raport_miesieczny', 'csv_file') }}
+
+  - type: custom:apexcharts-card
+    graph_span: 30d
+    header:
+      show: true
+      title: Koszt miesięczny
+    series:
+      - entity: sensor.automatyzacja_raportow_sza86_raport_miesieczny
+        attribute: total_cost
+        name: Koszt
